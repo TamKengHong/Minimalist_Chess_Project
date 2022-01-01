@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="bugs">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chessboard.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chesspiece.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GUI.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/Chessboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bK.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bN.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bQ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/bR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wK.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wN.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wQ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Images/wR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chesspiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chesspiece.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,6 +204,7 @@
       <workItem from="1640867856013" duration="7874000" />
       <workItem from="1641019498712" duration="640000" />
       <workItem from="1641020309181" duration="90000" />
+      <workItem from="1641020641084" duration="334000" />
     </task>
     <task id="LOCAL-00001" summary="Left with pawn movements and legal moves">
       <created>1640599616698</created>
@@ -265,7 +248,21 @@
       <option name="project" value="LOCAL" />
       <updated>1640787261798</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="bugs">
+      <created>1641020679153</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641020679153</updated>
+    </task>
+    <task id="LOCAL-00008" summary="bugs">
+      <created>1641020788253</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1641020788253</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +285,8 @@
     <MESSAGE value="Shortened some stuff + added castling movement&#10;To do checking of castling condition" />
     <MESSAGE value="Done up castling + abstracted out is_square_under_check function to shorten things." />
     <MESSAGE value="Added GUI, now gonna fix some bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added GUI, now gonna fix some bugs" />
+    <MESSAGE value="bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
