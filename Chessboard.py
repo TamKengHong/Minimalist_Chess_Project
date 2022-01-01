@@ -16,10 +16,12 @@ class ChessBoard:
         # setting up pieces in board.
         self.board_state[7] = [Rook("White"), Knight("White"), Bishop("White"), Queen("White"),
                                King("White"), Bishop("White"), Knight("White"), Rook("White")]
-        self.board_state[6] = [Pawn("White")] * 8
+        self.board_state[6] = [Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White"),
+                               Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White")]
         self.board_state[0] = [Rook("Black"), Knight("Black"), Bishop("Black"), Queen("Black"),
                                King("Black"), Bishop("Black"), Knight("Black"), Rook("Black")]
-        self.board_state[1] = [Pawn("Black")] * 8
+        self.board_state[1] = [Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"),
+                               Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black")]
 
         # giving the pieces their row and col positions:
         for i in [0, 1, 6, 7]:
