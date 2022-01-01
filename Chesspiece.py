@@ -1,6 +1,4 @@
 import pygame as p
-from copy import deepcopy
-
 
 
 class ChessPiece:
