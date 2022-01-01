@@ -47,28 +47,27 @@ class ChessPiece:
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
         temp_state = [([None] * 8) for _ in range(8)]
-        for row in range(8):
+        for row in range(8):  # recreate the whole board_state to store in temp_state
             for col in range(8):
-                if board.board_state[row][col] is not None:
-                    piece = board.board_state[row][col]
-                    if isinstance(piece, Pawn):
-                        new_piece = temp_state[row][col] = Pawn(piece.color)
-                        new_piece.row, new_piece.col = row, col
-                    if isinstance(piece, Rook):
-                        new_piece = temp_state[row][col] = Rook(piece.color)
-                        new_piece.row, new_piece.col = row, col
-                    if isinstance(piece, Bishop):
-                        new_piece = temp_state[row][col] = Bishop(piece.color)
-                        new_piece.row, new_piece.col = row, col
-                    if isinstance(piece, Queen):
-                        new_piece = temp_state[row][col] = Queen(piece.color)
-                        new_piece.row, new_piece.col = row, col
-                    if isinstance(piece, King):
-                        new_piece = temp_state[row][col] = King(piece.color)
-                        new_piece.row, new_piece.col = row, col
-                    if isinstance(piece, Knight):
-                        new_piece = temp_state[row][col] = Knight(piece.color)
-                        new_piece.row, new_piece.col = row, col
+                piece = board.board_state[row][col]
+                if isinstance(piece, Pawn):
+                    new_piece = temp_state[row][col] = Pawn(piece.color)
+                    new_piece.row, new_piece.col = row, col
+                if isinstance(piece, Rook):
+                    new_piece = temp_state[row][col] = Rook(piece.color)
+                    new_piece.row, new_piece.col = row, col
+                if isinstance(piece, Bishop):
+                    new_piece = temp_state[row][col] = Bishop(piece.color)
+                    new_piece.row, new_piece.col = row, col
+                if isinstance(piece, Queen):
+                    new_piece = temp_state[row][col] = Queen(piece.color)
+                    new_piece.row, new_piece.col = row, col
+                if isinstance(piece, King):
+                    new_piece = temp_state[row][col] = King(piece.color)
+                    new_piece.row, new_piece.col = row, col
+                if isinstance(piece, Knight):
+                    new_piece = temp_state[row][col] = Knight(piece.color)
+                    new_piece.row, new_piece.col = row, col
 
         print("temp state prev is ", temp_state)
 
