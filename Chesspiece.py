@@ -1,5 +1,5 @@
 import pygame as p
-#hello
+
 
 class ChessPiece:
     def __init__(self, color):
@@ -16,7 +16,7 @@ class ChessPiece:
                     moves.append((self.row + x, self.col + y))
         return moves
 
-    def linear_movements(self, board_state, directions):  # for Rook, Bishop, Queen
+    def linear_movements(self, board_state, directions):  # for Rook, Bishop, Queen, should be fine now
         moves = []
         for direction in directions:
             row_sum, col_sum = 0, 0
@@ -24,14 +24,12 @@ class ChessPiece:
                 row_sum += direction[0]
                 col_sum += direction[1]  # increment by + direction at every iter step
                 if self.row + row_sum in range(len(board_state)) and self.col + col_sum in range(len(board_state[0])):
-                    pos = (self.row + row_sum, self.col + col_sum)
-                    print(pos)
                     element = board_state[self.row + row_sum][self.col + col_sum]
                     if element is None:
-                        moves.append((self.row + row_sum, self.row + col_sum))
+                        moves.append((self.row + row_sum, self.col + col_sum))
                     else:
                         if element.color != self.color:
-                            moves.append((self.row + row_sum, self.row + col_sum))
+                            moves.append((self.row + row_sum, self.col + col_sum))
                         break
         return moves
 
@@ -53,6 +51,7 @@ class ChessPiece:
             if not board.is_under_check:
                 legal_moves.append(move)
             board.board_state = temp
+        print(legal_moves)
         return legal_moves
 
 
@@ -105,7 +104,7 @@ class Pawn(ChessPiece):
         img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
         self.img = p.transform.scale(img, (90, 90))
 
-    def pawn_movements(self, board_state, color):
+    def pawn_movements(self, board_state, color): #should be correct now
         moves = []
         forward_one = -1 if color == "White" else 1  # White moves -1 direction, black +1.
         if self.row + forward_one in range(len(board_state)):
@@ -119,5 +118,5 @@ class Pawn(ChessPiece):
                 if self.col + i in range(len(board_state[0])):  # prevent out of range error
                     piece = board_state[self.row + forward_one][self.col + i]
                     if piece is not None and piece.color != self.color:
-                        moves.append((self.row + forward_one, self.col - 1))
+                        moves.append((self.row + forward_one, self.col + i))
         return moves

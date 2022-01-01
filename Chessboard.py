@@ -6,6 +6,13 @@ class ChessBoard:
         self.board_state = [([None] * 8) for _ in range(8)]
         self.whose_turn = "White"
 
+        # #Test Board
+        # self.board_state[7] = [None, None, None, Bishop("White"),
+        #                        King("White"), None, None, None]
+        # self.board_state[0] = [None, None, None, Bishop("Black"),
+        #                        Pawn("Black"), None, None, None]
+
+
         # setting up pieces in board.
         self.board_state[7] = [Rook("White"), Knight("White"), Bishop("White"), Queen("White"),
                                King("White"), Bishop("White"), Knight("White"), Rook("White")]
@@ -18,7 +25,8 @@ class ChessBoard:
         for i in [0, 1, 6, 7]:
             for j in range(len(self.board_state[i])):
                 piece = self.board_state[i][j]
-                piece.row, piece.col = i, j
+                if isinstance(piece, ChessPiece):
+                    piece.row, piece.col = i, j
 
     def can_move(self, start_pos, end_pos):
         piece = self.board_state[start_pos[0]][start_pos[1]]
@@ -26,27 +34,25 @@ class ChessBoard:
             if piece.color == self.whose_turn:
                 legal_moves = piece.get_legal_moves(self)
                 for move in legal_moves:
-                    if end_pos == move:
+                    if end_pos[0] == move[0] and end_pos[1] == move[1]:
                         return True
+                if len(legal_moves) == 0:
+                    print("no legal moves")
+                    return False
         return False
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
-        if start_pos[0] not in range(8) or start_pos[1] not in range(8):
-            if end_pos[0] not in range(8) or end_pos[1] not in range(8):
-                return False
-            return False
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        # if (isinstance(piece, Pawn) or isinstance(piece, Rook) or isinstance(piece, King)) and piece.first_move == True:
-        #     piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
-        if piece is not None:
-            piece.row, piece.col = end_pos[0], end_pos[1]
+        if (isinstance(piece, Pawn) or isinstance(piece, Rook) or isinstance(piece, King)) and piece.first_move == True:
+            piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
+        piece.row, piece.col = end_pos[0], end_pos[1]
         self.board_state[start_pos[0]][start_pos[1]] = None
         self.board_state[end_pos[0]][end_pos[1]] = piece
 
         return True
 
     def can_castle(self, side):
-        i = 0 if self.whose_turn == "White" else 7 # get the row
+        i = 7 if self.whose_turn == "White" else 0 # get the row
         The_King = self.board_state[i][4]
         if side == "Kingside": # initialise constants to use later
             j,k = 5, 6
@@ -75,12 +81,12 @@ class ChessBoard:
     # def can_enpassant
 
     def castle_queenside(self):
-        i = 0 if self.whose_turn == "White" else 7
+        i = 7 if self.whose_turn == "White" else 0
         self.move_piece((i, 4), (i, 2))
         self.move_piece((i, 0), (i, 3))
 
     def castle_kingside(self):
-        i = 0 if self.whose_turn == "White" else 7
+        i = 7 if self.whose_turn == "White" else 0
         self.move_piece((i, 4), (i, 6))
         self.move_piece((i, 7), (i, 5))
 
@@ -97,7 +103,7 @@ class ChessBoard:
             for col in range(len(self.board_state[0])):
                 piece = self.board_state[row][col]
                 if piece is not None and piece.color != self.whose_turn:  # enemy piece
-                    legal_moves = piece.get_legal_moves(self)
+                    legal_moves = piece.get_all_moves(self)  # check every move if it gives rise to check
                     for move in legal_moves:
                         if move == square: # if there's a piece who can eat the square in next move
                             return True
@@ -127,7 +133,3 @@ class ChessBoard:
         else:
             return False
 
-# if self.whose_turn == "White":  # changes the turn!!! DO NOT! this one only done aft all the checks!
-#     self.whose_turn = "Black"
-# else:
-#     self.whose_turn = "White"

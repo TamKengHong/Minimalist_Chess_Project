@@ -7,7 +7,7 @@ PIECE_SIZE, CIRCLE_SIZE = 0.89 * SQ_SIZE, 0.1 * SQ_SIZE
 MAX_FPS = 60
 
 
-def gui_board(chessboard):
+def gui_board():
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
     p.display.set_caption('Chess')
@@ -16,7 +16,7 @@ def gui_board(chessboard):
     return screen
 
 
-def draw_piece(screen, board_state):
+def draw_pieces(screen, board_state):
     for row in range(8):
         for col in range(8):
             piece = board_state[row][col]
@@ -44,7 +44,7 @@ def show_legal_moves(screen, sq_selected, chessboard):
     piece = chessboard.board_state[sq_selected[0]][sq_selected[1]]
     legal_moves = piece.get_legal_moves(chessboard)
     for move in legal_moves:
-        p.draw.circle(screen, "red",
+        p.draw.circle(screen, "green",
                       (move[1] * PIECE_SIZE + 0.5 * PIECE_SIZE, move[0] * PIECE_SIZE + 0.5 * PIECE_SIZE),
                       CIRCLE_SIZE)
         p.display.update()
