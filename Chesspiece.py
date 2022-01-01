@@ -50,23 +50,19 @@ class ChessPiece:
         for row in range(8):  # recreate the whole board_state to store in temp_state
             for col in range(8):
                 piece = board.board_state[row][col]
-                if isinstance(piece, Pawn):
-                    new_piece = temp_state[row][col] = Pawn(piece.color)
-                    new_piece.row, new_piece.col = row, col
-                if isinstance(piece, Rook):
-                    new_piece = temp_state[row][col] = Rook(piece.color)
-                    new_piece.row, new_piece.col = row, col
-                if isinstance(piece, Bishop):
-                    new_piece = temp_state[row][col] = Bishop(piece.color)
-                    new_piece.row, new_piece.col = row, col
-                if isinstance(piece, Queen):
-                    new_piece = temp_state[row][col] = Queen(piece.color)
-                    new_piece.row, new_piece.col = row, col
-                if isinstance(piece, King):
-                    new_piece = temp_state[row][col] = King(piece.color)
-                    new_piece.row, new_piece.col = row, col
-                if isinstance(piece, Knight):
-                    new_piece = temp_state[row][col] = Knight(piece.color)
+                if piece is not None:
+                    if isinstance(piece, Pawn):
+                        new_piece = temp_state[row][col] = Pawn(piece.color)
+                    elif isinstance(piece, Rook):
+                        new_piece = temp_state[row][col] = Rook(piece.color)
+                    elif isinstance(piece, Bishop):
+                        new_piece = temp_state[row][col] = Bishop(piece.color)
+                    elif isinstance(piece, Queen):
+                        new_piece = temp_state[row][col] = Queen(piece.color)
+                    elif isinstance(piece, King):
+                        new_piece = temp_state[row][col] = King(piece.color)
+                    elif isinstance(piece, Knight):
+                        new_piece = temp_state[row][col] = Knight(piece.color)
                     new_piece.row, new_piece.col = row, col
 
         print("temp state prev is ", temp_state)
