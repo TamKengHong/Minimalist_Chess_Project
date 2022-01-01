@@ -47,11 +47,11 @@ class ChessBoard:
         piece = self.board_state[start_pos[0]][start_pos[1]]
         if (isinstance(piece, Pawn) or isinstance(piece, Rook) or isinstance(piece, King)) and piece.first_move == True:
             piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
+            # possible bug where legal move will move the pawn but it actually hasnt moved, then first_move set to false
+
         piece.row, piece.col = end_pos[0], end_pos[1]
         self.board_state[start_pos[0]][start_pos[1]] = None
         self.board_state[end_pos[0]][end_pos[1]] = piece
-
-        return True
 
     def can_castle(self, side):
         i = 7 if self.whose_turn == "White" else 0 # get the row
@@ -105,7 +105,7 @@ class ChessBoard:
             for col in range(len(self.board_state[0])):
                 piece = self.board_state[row][col]
                 if piece is not None and piece.color != self.whose_turn:  # enemy piece
-                    legal_moves = piece.get_all_moves(self)  # check every move if it gives rise to check
+                    legal_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
                     for move in legal_moves:
                         if move == square: # if there's a piece who can eat the square in next move
                             return True

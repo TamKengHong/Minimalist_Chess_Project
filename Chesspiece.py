@@ -46,12 +46,12 @@ class ChessPiece:
         legal_moves = []
 
         for move in all_moves:
-            temp = board.board_state
+            temp_state = board.board_state
             board.move_piece((self.row, self.col), move)
-            if not board.is_under_check:
+            if not board.is_under_check():
                 legal_moves.append(move)
-            board.board_state = temp
-        print(legal_moves)
+            board.board_state = temp_state
+        print("legal moves are ", legal_moves)
         return legal_moves
 
 
