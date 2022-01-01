@@ -36,7 +36,7 @@ class ChessBoard:
             if piece.color == self.whose_turn:
                 legal_moves = piece.get_legal_moves(self)
                 for move in legal_moves:
-                    if end_pos[0] == move[0] and end_pos[1] == move[1]:
+                    if end_pos == move:
                         return True
                 if len(legal_moves) == 0:
                     print("no legal moves")
@@ -48,8 +48,8 @@ class ChessBoard:
         if (isinstance(piece, Pawn) or isinstance(piece, Rook) or isinstance(piece, King)) and piece.first_move == True:
             piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
             # possible bug where legal move will move the pawn but it actually hasnt moved, then first_move set to false
-
-        piece.row, piece.col = end_pos[0], end_pos[1]
+        if piece is not None:
+            piece.row, piece.col = end_pos[0], end_pos[1]
         self.board_state[start_pos[0]][start_pos[1]] = None
         self.board_state[end_pos[0]][end_pos[1]] = piece
 

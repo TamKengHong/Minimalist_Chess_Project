@@ -38,10 +38,11 @@ def main():
                         player_clicks.append(sq_selected)
 
                         if cbd.can_move(player_clicks[0], player_clicks[1]): #by checking whether can move, the piece moved. nice bug
+                            print("object at end_point is ", cbd.board_state[player_clicks[1][0]][player_clicks[1][1]])
                             print("actual move is", player_clicks[0], "to", player_clicks[1])
                             cbd.move_piece(player_clicks[0], player_clicks[1])
-                            # it somehow ignores this and moves to the last position of all_moves.
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
+                            # it somehow ignores this and moves to the last position of all_moves.
 
                         screen = gui_board()
                         draw_pieces(screen, cbd.board_state)

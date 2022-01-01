@@ -1,4 +1,6 @@
 import pygame as p
+from copy import deepcopy
+
 
 
 class ChessPiece:
@@ -41,16 +43,43 @@ class ChessPiece:
         elif isinstance(self, King) or isinstance(self, Knight):
             return self.step_movements(board_state, self.movements)
 
-    def get_legal_moves(self, board):
+    def get_legal_moves(self, board): #my temp state isnt storing the prev board position nicely.
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
+        temp_state = [([None] * 8) for _ in range(8)]
+        for row in range(8):
+            for col in range(8):
+                if board.board_state[row][col] is not None:
+                    piece = board.board_state[row][col]
+                    if isinstance(piece, Pawn):
+                        new_piece = temp_state[row][col] = Pawn(piece.color)
+                        new_piece.row, new_piece.col = row, col
+                    if isinstance(piece, Rook):
+                        new_piece = temp_state[row][col] = Rook(piece.color)
+                        new_piece.row, new_piece.col = row, col
+                    if isinstance(piece, Bishop):
+                        new_piece = temp_state[row][col] = Bishop(piece.color)
+                        new_piece.row, new_piece.col = row, col
+                    if isinstance(piece, Queen):
+                        new_piece = temp_state[row][col] = Queen(piece.color)
+                        new_piece.row, new_piece.col = row, col
+                    if isinstance(piece, King):
+                        new_piece = temp_state[row][col] = King(piece.color)
+                        new_piece.row, new_piece.col = row, col
+                    if isinstance(piece, Knight):
+                        new_piece = temp_state[row][col] = Knight(piece.color)
+                        new_piece.row, new_piece.col = row, col
+
+        print("temp state prev is ", temp_state)
 
         for move in all_moves:
-            temp_state = board.board_state
             board.move_piece((self.row, self.col), move)
             if not board.is_under_check():
                 legal_moves.append(move)
             board.board_state = temp_state
+        board.board_state = temp_state
+        print("temp state now is ", temp_state)
+        print("board state is ", board.board_state)
         print("legal moves are ", legal_moves)
         return legal_moves
 
