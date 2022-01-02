@@ -44,6 +44,8 @@ def main():
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
                             # it somehow ignores this and moves to the last position of all_moves.
 
+                        cbd.pawn_promotion()  # ok
+
                         screen = gui_board()
                         draw_pieces(screen, cbd.board_state)
                         p.display.update()
@@ -51,8 +53,8 @@ def main():
                         sq_selected = ()
                         player_clicks = []
 
-                        # if cbd.is_mate():  # BUGGED
-                        #      show_checkmate(screen, cbd)
+                        if cbd.is_mate():  # BUGGED
+                             show_checkmate(screen, cbd)
                         print("Turn now is", cbd.whose_turn)
 
 

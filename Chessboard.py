@@ -28,6 +28,27 @@ class ChessBoard:
                 if isinstance(piece, ChessPiece):
                     piece.row, piece.col = i, j
 
+    def copy(self):
+        copy = [([None] * 8) for _ in range(8)]
+        for row in range(8):  # recreate the whole board_state to store
+            for col in range(8):
+                piece = self.board_state[row][col]
+                if piece is not None:
+                    if isinstance(piece, Pawn):
+                        new_piece = copy[row][col] = Pawn(piece.color)
+                    elif isinstance(piece, Rook):
+                        new_piece = copy[row][col] = Rook(piece.color)
+                    elif isinstance(piece, Bishop):
+                        new_piece = copy[row][col] = Bishop(piece.color)
+                    elif isinstance(piece, Queen):
+                        new_piece = copy[row][col] = Queen(piece.color)
+                    elif isinstance(piece, King):
+                        new_piece = copy[row][col] = King(piece.color)
+                    elif isinstance(piece, Knight):
+                        new_piece = copy[row][col] = Knight(piece.color)
+                    new_piece.row, new_piece.col = row, col
+        return copy
+
     def can_move(self, start_pos, end_pos):
         piece = self.board_state[start_pos[0]][start_pos[1]]
         if piece is not None:
@@ -93,10 +114,9 @@ class ChessBoard:
     def pawn_promotion(self):  # checks the backrank if theres pawns to queen depending on color.
         for i in [7, 0]:
             for j in range(len(self.board_state[0])):
-                piece = self.board_state[i][j]
-                if isinstance(self.board_state[i][j], Pawn) and piece.color == self.whose_turn:
-                    piece = Queen(self.whose_turn)  # auto queen
-                    piece.row, piece.col = i, j
+                if isinstance(self.board_state[i][j], Pawn):
+                    self.board_state[i][j] = Queen(self.board_state[i][j].color)  # auto queen
+                    self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
     def is_square_under_check(self, square): # feed in a square pair(i,j) and determines if in check.
         for row in range(len(self.board_state)):
@@ -129,7 +149,10 @@ class ChessBoard:
             return False
 
         if (not has_legal_moves(self.whose_turn)):  # checks if white or black turn has legal moves
-            return "Checkmate" if self.is_under_check() else "Stalemate"
+            a = "Checkmate" if self.is_under_check() else "Stalemate"
+            if a == "Checkmate":
+                print("Checkmate")
+                return True
         else:
             return False
 

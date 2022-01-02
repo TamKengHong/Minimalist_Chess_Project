@@ -44,36 +44,14 @@ class ChessPiece:
     def get_legal_moves(self, board): #my temp state isnt storing the prev board position nicely.
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
-        temp_state = [([None] * 8) for _ in range(8)]
-        for row in range(8):  # recreate the whole board_state to store in temp_state
-            for col in range(8):
-                piece = board.board_state[row][col]
-                if piece is not None:
-                    if isinstance(piece, Pawn):
-                        new_piece = temp_state[row][col] = Pawn(piece.color)
-                    elif isinstance(piece, Rook):
-                        new_piece = temp_state[row][col] = Rook(piece.color)
-                    elif isinstance(piece, Bishop):
-                        new_piece = temp_state[row][col] = Bishop(piece.color)
-                    elif isinstance(piece, Queen):
-                        new_piece = temp_state[row][col] = Queen(piece.color)
-                    elif isinstance(piece, King):
-                        new_piece = temp_state[row][col] = King(piece.color)
-                    elif isinstance(piece, Knight):
-                        new_piece = temp_state[row][col] = Knight(piece.color)
-                    new_piece.row, new_piece.col = row, col
-
-        print("temp state prev is ", temp_state)
-
+        temp_state = board.copy() #original board pos
         for move in all_moves:
+            temp_state = board.copy()
             board.move_piece((self.row, self.col), move)
             if not board.is_under_check():
                 legal_moves.append(move)
-            board.board_state = temp_state
+            board.board_state = temp_state #assigning doesnt work, u will change temp state instead. need copy
         board.board_state = temp_state
-        print("temp state now is ", temp_state)
-        print("board state is ", board.board_state)
-        print("legal moves are ", legal_moves)
         return legal_moves
 
 
@@ -129,16 +107,15 @@ class Pawn(ChessPiece):
     def pawn_movements(self, board_state, color): #should be correct now
         moves = []
         forward_one = -1 if color == "White" else 1  # White moves -1 direction, black +1.
-        if self.row + forward_one in range(len(board_state)):
-            if board_state[self.row + forward_one][self.col] is None:
-                moves.append((self.row + forward_one, self.col))
-            if self.first_move:
-                if self.row + forward_one * 2 in range(len(board_state)):
-                    if board_state[self.row + (forward_one * 2)][self.col] is None:
-                        moves.append((self.row + forward_one * 2, self.col))
-            for i in [-1, 1]:  # check left and right diagonal for enemy piece to eat.
-                if self.col + i in range(len(board_state[0])):  # prevent out of range error
-                    piece = board_state[self.row + forward_one][self.col + i]
-                    if piece is not None and piece.color != self.color:
-                        moves.append((self.row + forward_one, self.col + i))
+        if board_state[self.row + forward_one][self.col] is None:
+            moves.append((self.row + forward_one, self.col))
+        if self.first_move:
+            if self.row + forward_one * 2 in range(len(board_state)):
+                if board_state[self.row + (forward_one * 2)][self.col] is None:
+                    moves.append((self.row + forward_one * 2, self.col))
+        for i in [-1, 1]:  # check left and right diagonal for enemy piece to eat.
+            if self.col + i in range(len(board_state[0])):  # prevent out of range error
+                piece = board_state[self.row + forward_one][self.col + i]
+                if piece is not None and piece.color != self.color:
+                    moves.append((self.row + forward_one, self.col + i))
         return moves

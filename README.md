@@ -14,3 +14,8 @@ Extensions:
 4. implement move history
 5. implement undo (do we need this?)
 6. implement pawn promotion (done auto queen)
+
+Bugs:
+1. Legal move sometimes is bugged, eg, bishop can move there but legal move show cant
+2. Pins dont work, king will still die to the threat
+3. Check for checkmate/stalemate
