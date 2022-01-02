@@ -1,3 +1,4 @@
+from Chessboard import *
 import pygame as p
 
 
@@ -41,7 +42,7 @@ class ChessPiece:
         elif isinstance(self, King) or isinstance(self, Knight):
             return self.step_movements(board_state, self.movements)
 
-    def get_legal_moves(self, board): #my temp state isnt storing the prev board position nicely.
+    def get_legal_moves(self, board):
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
         temp_state = board.copy() #original board pos
@@ -50,8 +51,8 @@ class ChessPiece:
             board.move_piece((self.row, self.col), move)
             if not board.is_under_check():
                 legal_moves.append(move)
-            board.board_state = temp_state #assigning doesnt work, u will change temp state instead. need copy
-        board.board_state = temp_state
+            board.board_state = temp_state
+        board.board_state = temp_state  # board_state now points to the copied board_state
         return legal_moves
 
 
@@ -109,8 +110,7 @@ class Pawn(ChessPiece):
         forward_one = -1 if color == "White" else 1  # White moves -1 direction, black +1.
         if board_state[self.row + forward_one][self.col] is None:
             moves.append((self.row + forward_one, self.col))
-        if self.first_move:
-            if self.row + forward_one * 2 in range(len(board_state)):
+            if self.first_move:
                 if board_state[self.row + (forward_one * 2)][self.col] is None:
                     moves.append((self.row + forward_one * 2, self.col))
         for i in [-1, 1]:  # check left and right diagonal for enemy piece to eat.

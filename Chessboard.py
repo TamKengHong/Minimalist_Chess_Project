@@ -6,13 +6,6 @@ class ChessBoard:
         self.board_state = [([None] * 8) for _ in range(8)]
         self.whose_turn = "White"
 
-        # #Test Board
-        # self.board_state[7] = [None, None, None, Bishop("White"),
-        #                        King("White"), None, None, None]
-        # self.board_state[0] = [None, None, None, Bishop("Black"),
-        #                        Pawn("Black"), None, None, None]
-
-
         # setting up pieces in board.
         self.board_state[7] = [Rook("White"), Knight("White"), Bishop("White"), Queen("White"),
                                King("White"), Bishop("White"), Knight("White"), Rook("White")]
@@ -25,8 +18,7 @@ class ChessBoard:
         for i in [0, 1, 6, 7]:
             for j in range(len(self.board_state[i])):
                 piece = self.board_state[i][j]
-                if isinstance(piece, ChessPiece):
-                    piece.row, piece.col = i, j
+                piece.row, piece.col = i, j
 
     def copy(self):
         copy = [([None] * 8) for _ in range(8)]
@@ -57,15 +49,13 @@ class ChessBoard:
                 for move in legal_moves:
                     if end_pos == move:
                         return True
-                if len(legal_moves) == 0:
-                    print("no legal moves")
-                    return False
         return False
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        if (isinstance(piece, Pawn) or isinstance(piece, Rook) or isinstance(piece, King)) and piece.first_move == True:
+        if isinstance(piece, Pawn) or isinstance(piece, King) or isinstance(piece, Rook):
             piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
+            #doesnt seem to work?
             # possible bug where legal move will move the pawn but it actually hasnt moved, then first_move set to false
         if piece is not None:
             piece.row, piece.col = end_pos[0], end_pos[1]
@@ -139,7 +129,7 @@ class ChessBoard:
 
         return checker(self.whose_turn)
 
-    def is_mate(self):
+    def is_mate(self): #doesnt work
         def has_legal_moves(color):
             for row in range(len(self.board_state)):
                 for col in range(len(self.board_state[0])):
@@ -151,8 +141,7 @@ class ChessBoard:
         if (not has_legal_moves(self.whose_turn)):  # checks if white or black turn has legal moves
             a = "Checkmate" if self.is_under_check() else "Stalemate"
             if a == "Checkmate":
-                print("Checkmate")
+                print("Checkmate") #doesnt work
                 return True
         else:
             return False
-

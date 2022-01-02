@@ -24,11 +24,9 @@ def draw_pieces(screen, board_state):
                 screen.blit(piece.img, p.Rect(col * PIECE_SIZE, row * PIECE_SIZE, PIECE_SIZE, PIECE_SIZE))
 
 
-def get_sq_selected(): #no issue
-    # (x, y) pos of mouse
-    location = p.mouse.get_pos()
-    row = int(location[1] // PIECE_SIZE)
-    col = int(location[0] // PIECE_SIZE)
+def get_sq_selected():  # no issue
+    location = p.mouse.get_pos()     # (x, y) pos of mouse
+    row, col = int(location[1] // PIECE_SIZE), int(location[0] // PIECE_SIZE)
     return (row, col)
 
 
@@ -50,31 +48,11 @@ def show_legal_moves(screen, sq_selected, chessboard):
         p.display.update()
 
 
-# def move_piece(start_pos, end_pos, chessboard):
-#     piece = chessboard.board_state[start_pos[0]][start_pos[1]]
-#     if piece is not None:
-#         legal_moves = piece.legal_moves(chessboard)
-#         if end_pos in legal_moves:
-#             chessboard.remove_from_board(piece.name)
-#             chessboard.add_to_board(piece, end_pos[0], end_pos[1])
-#             return True
-#     return False
-
-
 def show_checkmate(screen, chessboard):
     winner = "White" if chessboard.whose_turn == "White" else "Black"
-
     font = p.font.Font('freesansbold.ttf', 50)
-
-    # create a text surface object,
-    # on which text is drawn on it.
     text = font.render(f'CHECKMATE\n{winner} WINS', True, "black")
-
-    # create a rectangular object for the
-    # text surface object
     text_rect = text.get_rect()
-
-    # set the center of the rectangular object.
     text_rect.center = (WIDTH // 2, HEIGHT // 2)
 
     screen.blit(text, text_rect)
