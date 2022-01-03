@@ -130,7 +130,7 @@ class ChessBoard:
 
         return checker(self.whose_turn)
 
-    def is_mate(self): #doesnt work
+    def is_mate(self):  # doesnt work
         def has_legal_moves(color):
             for row in range(len(self.board_state)):
                 for col in range(len(self.board_state[0])):
@@ -142,7 +142,7 @@ class ChessBoard:
         if (not has_legal_moves(self.whose_turn)):  # checks if white or black turn has legal moves
             a = "Checkmate" if self.is_under_check() else "Stalemate"
             if a == "Checkmate":
-                print("Checkmate") #doesnt work
+                print("Checkmate")  # doesnt work
                 return True
         else:
             return False
