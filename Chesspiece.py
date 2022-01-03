@@ -1,4 +1,3 @@
-from Chessboard import *
 import pygame as p
 
 
@@ -45,7 +44,7 @@ class ChessPiece:
     def get_legal_moves(self, board):
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
-        temp_state = board.copy() #original board pos
+        temp_state = board.copy()  # original board pos
         for move in all_moves:
             temp_state = board.copy()
             board.move_piece((self.row, self.col), move)
@@ -62,7 +61,7 @@ class Rook(ChessPiece):
         self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # up down left right
         self.first_move = True  # for castling
         img = p.image.load("Images/wR.png") if color == "White" else p.image.load("Images/bR.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
 
 class Bishop(ChessPiece):
@@ -70,7 +69,7 @@ class Bishop(ChessPiece):
         super().__init__(color)
         self.directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]  # all 4 diagonals
         img = p.image.load("Images/wB.png") if color == "White" else p.image.load("Images/bB.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
 
 class Knight(ChessPiece):
@@ -78,7 +77,7 @@ class Knight(ChessPiece):
         super().__init__(color)
         self.movements = [(2, -1), (2, 1), (1, -2), (1, 2), (-1, -2), (-1, 2), (-2, -1), (-2, 1)]  # 8 movements
         img = p.image.load("Images/wN.png") if color == "White" else p.image.load("Images/bN.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
 
 class King(ChessPiece):
@@ -87,7 +86,7 @@ class King(ChessPiece):
         self.movements = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]  # 8 movements
         self.first_move = True  # for castling
         img = p.image.load("Images/wK.png") if color == "White" else p.image.load("Images/bK.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
 
 class Queen(ChessPiece):
@@ -95,7 +94,7 @@ class Queen(ChessPiece):
         super().__init__(color)
         self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]  # rook + bishop
         img = p.image.load("Images/wQ.png") if color == "White" else p.image.load("Images/bQ.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
 
 class Pawn(ChessPiece):
@@ -103,7 +102,7 @@ class Pawn(ChessPiece):
         super().__init__(color)
         self.first_move = True  # pawn can move 1 or 2 squares in first move
         img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
-        self.img = p.transform.scale(img, (90, 90))
+        self.img = p.transform.scale(img, (100, 100))
 
     def pawn_movements(self, board_state, color): #should be correct now
         moves = []

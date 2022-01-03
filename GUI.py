@@ -3,8 +3,8 @@ import pygame as p
 HEIGHT, WIDTH = 800, 800
 ROWS, COLS = 7, 7
 SQ_SIZE = HEIGHT / ROWS + 1
-PIECE_SIZE, CIRCLE_SIZE = 0.89 * SQ_SIZE, 0.1 * SQ_SIZE
-MAX_FPS = 60
+PIECE_SIZE = 100
+CIRCLE_SIZE = 0.1 * SQ_SIZE
 
 
 def gui_board():
@@ -49,9 +49,9 @@ def show_legal_moves(screen, sq_selected, chessboard):
 
 
 def show_checkmate(screen, chessboard):
-    winner = "White" if chessboard.whose_turn == "White" else "Black"
+    winner = "White" if chessboard.whose_turn == "Black" else "Black"
     font = p.font.Font('freesansbold.ttf', 50)
-    text = font.render(f'CHECKMATE\n{winner} WINS', True, "black")
+    text = font.render(f'CHECKMATE {winner} WINS', True, "black")
     text_rect = text.get_rect()
     text_rect.center = (WIDTH // 2, HEIGHT // 2)
 

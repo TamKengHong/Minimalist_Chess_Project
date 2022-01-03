@@ -38,6 +38,8 @@ class ChessBoard:
                         new_piece = copy[row][col] = King(piece.color)
                     elif isinstance(piece, Knight):
                         new_piece = copy[row][col] = Knight(piece.color)
+                    if isinstance(new_piece, Pawn) or isinstance(new_piece, Rook) or isinstance(new_piece, King):
+                        new_piece.first_move = piece.first_move  # inherits the original piece first_moves
                     new_piece.row, new_piece.col = row, col
         return copy
 
@@ -53,12 +55,7 @@ class ChessBoard:
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        if isinstance(piece, Pawn) or isinstance(piece, King) or isinstance(piece, Rook):
-            piece.first_move = False  # pawns will now only be able to move 1 step, or King/Rook can't castle anymore.
-            #doesnt seem to work?
-            # possible bug where legal move will move the pawn but it actually hasnt moved, then first_move set to false
-        if piece is not None:
-            piece.row, piece.col = end_pos[0], end_pos[1]
+        # piece.row, piece.col = end_pos[0], end_pos[1]
         self.board_state[start_pos[0]][start_pos[1]] = None
         self.board_state[end_pos[0]][end_pos[1]] = piece
 
@@ -116,6 +113,7 @@ class ChessBoard:
                     legal_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
                     for move in legal_moves:
                         if move == square: # if there's a piece who can eat the square in next move
+                            print(True)
                             return True
         return False
 
