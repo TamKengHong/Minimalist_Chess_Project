@@ -17,6 +17,5 @@ Extensions:
 
 Bugs:
 1. Legal move sometimes is bugged, eg, bishop can move there but legal move show cant
-2. Pins dont work, king will still die to the threat
+2. None attribute error when moving piece (big issue)
 3. Check for checkmate/stalemate
-4. pawns can still move 2 steps after first move, first move function doesnt work.
