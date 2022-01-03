@@ -56,8 +56,11 @@ class ChessBoard:
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
         piece = self.board_state[start_pos[0]][start_pos[1]]
         # piece.row, piece.col = end_pos[0], end_pos[1]
-        self.board_state[start_pos[0]][start_pos[1]] = None
         self.board_state[end_pos[0]][end_pos[1]] = piece
+        self.board_state[start_pos[0]][start_pos[1]] = None
+        if isinstance(piece, King):
+            piece.row, piece.col = end_pos[0], end_pos[1]
+            print(piece.row, piece.col)
 
     def can_castle(self, side):
         i = 7 if self.whose_turn == "White" else 0 # get the row
@@ -113,7 +116,7 @@ class ChessBoard:
                     legal_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
                     for move in legal_moves:
                         if move == square: # if there's a piece who can eat the square in next move
-                            print(True)
+                            print("check in ", square)
                             return True
         return False
 

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="update gui">
+    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="GUI pieces now aligned,&#10;Left 1 last bug (hopefully)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chessboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chessboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chesspiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chesspiece.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +211,7 @@
       <workItem from="1641043147035" duration="7659000" />
       <workItem from="1641096475488" duration="12609000" />
       <workItem from="1641193805772" duration="3815000" />
-      <workItem from="1641218811591" duration="5920000" />
+      <workItem from="1641218811591" duration="7631000" />
     </task>
     <task id="LOCAL-00001" summary="Left with pawn movements and legal moves">
       <created>1640599616698</created>
@@ -355,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641200558052</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="GUI pieces now aligned,&#10;Left 1 last bug (hopefully)">
+      <created>1641224977797</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1641224977797</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,7 +392,8 @@
     <MESSAGE value="hello" />
     <MESSAGE value="update, movements somewhat working, &#10;now to fix up pins and mate function etc" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="GUI pieces now aligned,&#10;Left 1 last bug (hopefully)" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI pieces now aligned,&#10;Left 1 last bug (hopefully)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -402,7 +408,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Chess_Program$main.coverage" NAME="main Coverage Results" MODIFIED="1640875324628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main Coverage Results" MODIFIED="1641224787181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main Coverage Results" MODIFIED="1641226487789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Chinese_Chess$main.coverage" NAME="main Coverage Results" MODIFIED="1640162584411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PycharmProjects$Chessboard.coverage" NAME="Chessboard Coverage Results" MODIFIED="1640685644914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PycharmProjects$Chesspiece.coverage" NAME="Chesspiece Coverage Results" MODIFIED="1640685650161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
