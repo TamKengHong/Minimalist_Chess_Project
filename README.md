@@ -16,6 +16,4 @@ Extensions:
 6. implement pawn promotion (done auto queen)
 
 Bugs:
-1. Legal move is bugged for king
-2. None attribute error when moving piece (big issue)
-3. Check for checkmate/stalemate
+Done
