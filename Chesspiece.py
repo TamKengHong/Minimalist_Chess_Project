@@ -44,14 +44,14 @@ class ChessPiece:
     def get_legal_moves(self, board):
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
-        # temp_state = board.copy()  # original board pos
+        temp_state = board.copy()  # original board pos
         for move in all_moves:
             temp_state = board.copy()
             board.move_piece((self.row, self.col), move)
             if not board.is_under_check():
                 legal_moves.append(move)
             board.board_state = temp_state
-        # board.board_state = temp_state  # board_state now points to the copied board_state
+        board.board_state = temp_state  # board_state now points to the copied board_state
         return legal_moves
 
 

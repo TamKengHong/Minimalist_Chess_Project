@@ -6,19 +6,16 @@ class ChessBoard:
         self.board_state = [([None] * 8) for _ in range(8)]
         self.whose_turn = "White"
 
-        # setting up pieces in board.
-        self.board_state[7] = [Rook("White"), Knight("White"), Bishop("White"), Queen("White"),
-                               King("White"), Bishop("White"), Knight("White"), Rook("White")]
-        self.board_state[6] = [Pawn("White") for _ in range(8)]
-        self.board_state[0] = [Rook("Black"), Knight("Black"), Bishop("Black"), Queen("Black"),
-                               King("Black"), Bishop("Black"), Knight("Black"), Rook("Black")]
-        self.board_state[1] = [Pawn("Black") for _ in range(8)]
-
-        # giving the pieces their row and col positions:
         for i in [0, 1, 6, 7]:
-            for j in range(len(self.board_state[i])):
-                piece = self.board_state[i][j]
-                piece.row, piece.col = i, j
+            color = "Black" if i <= 1 else "White"
+            if i == 0 or i == 7:  # Setting up board
+                self.board_state[i] = [Rook(color), Knight(color), Bishop(color), Queen(color),
+                                       King(color), Bishop(color), Knight(color), Rook(color)]
+            else: # Setting up board
+                self.board_state[i] = [Pawn(color) for _ in range(8)]
+
+            for j in range(len(self.board_state[i])):  # giving the pieces their row and col positions:
+                self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
     def copy(self):
         copy = [([None] * 8) for _ in range(8)]
@@ -55,12 +52,9 @@ class ChessBoard:
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        # piece.row, piece.col = end_pos[0], end_pos[1]
+        piece.row, piece.col = end_pos[0], end_pos[1]
         self.board_state[end_pos[0]][end_pos[1]] = piece
         self.board_state[start_pos[0]][start_pos[1]] = None
-        if isinstance(piece, King):
-            piece.row, piece.col = end_pos[0], end_pos[1]
-            print(piece.row, piece.col)
 
     def can_castle(self, side):
         i = 7 if self.whose_turn == "White" else 0 # get the row
@@ -113,10 +107,9 @@ class ChessBoard:
             for col in range(len(self.board_state[0])):
                 piece = self.board_state[row][col]
                 if piece is not None and piece.color != self.whose_turn:  # enemy piece
-                    legal_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
-                    for move in legal_moves:
+                    all_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
+                    for move in all_moves:
                         if move == square: # if there's a piece who can eat the square in next move
-                            print("check in ", square)
                             return True
         return False
 
@@ -139,7 +132,7 @@ class ChessBoard:
                         return True  # stop once there are legal moves
             return False
 
-        if (not has_legal_moves(self.whose_turn)):  # checks if white or black turn has legal moves
+        if not has_legal_moves(self.whose_turn):  # checks if white or black turn has legal moves
             a = "Checkmate" if self.is_under_check() else "Stalemate"
             if a == "Checkmate":
                 print("Checkmate")  # doesnt work
