@@ -74,7 +74,7 @@ class ChessBoard:
                     # Checks empty squares between King and Rook, then sees if the squares are in check.
                     if self.is_square_under_check((i,j)) or self.is_square_under_check((i,k)):
                         return False
-                return True
+                    return True
         return False
 
     # def can_castle_kingside(self): redundant
