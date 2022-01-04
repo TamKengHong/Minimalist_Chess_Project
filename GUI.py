@@ -49,7 +49,7 @@ def show_legal_moves(screen, sq_selected, chessboard):
 
 
 def show_checkmate(screen, chessboard):
-    winner = "White" if chessboard.whose_turn == "Black" else "Black"
+    winner = "WHITE" if chessboard.whose_turn == "Black" else "BLACK"
     font = p.font.Font('freesansbold.ttf', 50)
     text = font.render(f'CHECKMATE {winner} WINS', True, "black")
     text_rect = text.get_rect()

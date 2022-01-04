@@ -6,20 +6,20 @@ class ChessBoard:
         self.board_state = [([None] * 8) for _ in range(8)]
         self.whose_turn = "White"
 
-        for i in [0, 1, 6, 7]:
+        for i in [0, 1, 6, 7]:  # Setting up board + giving pieces their row, col positions.
             color = "Black" if i <= 1 else "White"
-            if i == 0 or i == 7:  # Setting up board
+            if i == 0 or i == 7:
                 self.board_state[i] = [Rook(color), Knight(color), Bishop(color), Queen(color),
                                        King(color), Bishop(color), Knight(color), Rook(color)]
-            else: # Setting up board
+            else:
                 self.board_state[i] = [Pawn(color) for _ in range(8)]
 
-            for j in range(len(self.board_state[i])):  # giving the pieces their row and col positions:
+            for j in range(len(self.board_state[i])):
                 self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
-    def copy(self):
+    def copy(self):  # recreate the whole board_state to store
         copy = [([None] * 8) for _ in range(8)]
-        for row in range(8):  # recreate the whole board_state to store
+        for row in range(8):
             for col in range(8):
                 piece = self.board_state[row][col]
                 if piece is not None:
@@ -77,11 +77,11 @@ class ChessBoard:
                 return True
         return False
 
-    def can_castle_kingside(self):
-        return self.can_castle("Kingside")
-
-    def can_castle_queenside(self):
-        return self.can_castle("Queenside")
+    # def can_castle_kingside(self): redundant
+    #     return self.can_castle("Kingside")
+    #
+    # def can_castle_queenside(self):
+    #     return self.can_castle("Queenside")
 
     # def can_enpassant
 

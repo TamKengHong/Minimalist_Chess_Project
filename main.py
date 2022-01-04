@@ -3,20 +3,17 @@ from GUI import *
 
 
 def main():
-    cbd = ChessBoard()
-    sq_selected = ()  # no square selected, keep track of last click of user (tuple: (row, col))
-    player_clicks = []  # keep track of player clicks (two tuples: [(0, 0), (0, 1)]
+    cbd, screen, mate = ChessBoard(), gui_board(), False
+    sq_selected, player_clicks = (), []  # sq is tuple of (row, col), player_clicks is array of sq_selected
+    castle_kingside_move, castle_queenside_move = [], []
 
     def refresh_screen():
         draw_pieces(gui_board(), cbd.board_state)
         p.display.update()
 
-    screen = gui_board()
-    refresh_screen() #initialise the screen
-    mate = False
+    refresh_screen()  # initialise the screen
 
     while True:
-
         for e in p.event.get():
             if e.type == p.QUIT:
                 p.quit()
@@ -25,14 +22,23 @@ def main():
             elif e.type == p.MOUSEBUTTONDOWN:  # player input
                 if len(player_clicks) == 0:
                     sq_selected = get_sq_selected()  # no issue
+
                     if is_legal_piece(sq_selected, cbd):
                         show_legal_moves(screen, sq_selected, cbd)  # ok
+                        piece = cbd.board_state[sq_selected[0]][sq_selected[1]]
+
+                        if isinstance(piece, King): #checks for castle and displays the move
+                            if cbd.can_castle("Kingside"):
+                                castle_kingside_move = (0,6) if cbd.whose_turn == "Black" else (7,6)
+
+                            if cbd.can_castle("Queenside"):
+                                castle_queenside_move = (0,2) if cbd.whose_turn == "Black" else (7,2)
+
                         player_clicks.append(sq_selected)
 
                 elif len(player_clicks) == 1:
                     if sq_selected == get_sq_selected():  # deselects if he clicks on same square
-                        sq_selected = ()
-                        player_clicks = []
+                        sq_selected, player_clicks = (), []
                         refresh_screen()
                     else:
                         sq_selected = get_sq_selected()
@@ -46,13 +52,21 @@ def main():
                             cbd.pawn_promotion()
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
-                        if cbd.is_mate():  # BUGGED
+                        # special moves (castle, enpassant)
+                        if sq_selected == castle_kingside_move:
+                            cbd.castle_kingside()
+                            cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
+
+                        if sq_selected == castle_queenside_move:
+                            cbd.castle_queenside()
+                            cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black" #repeated, refactor out.
+
+
+                        if cbd.is_mate():
                             mate = True
 
                         refresh_screen()
-
-                        sq_selected = ()
-                        player_clicks = []
+                        sq_selected, player_clicks = (), []
 
                         print("Turn now is", cbd.whose_turn)
 
