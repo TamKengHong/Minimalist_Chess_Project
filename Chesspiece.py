@@ -1,4 +1,6 @@
 import pygame as p
+import pygame.transform
+from GUI import piece_size
 
 
 class ChessPiece:
@@ -6,6 +8,11 @@ class ChessPiece:
         self.color = color
         self.row = None
         self.col = None
+        self.img = None
+
+    @property
+    def get_img(self):
+        return self.img
 
     def step_movements(self, board_state, movements):  # for King, Knight
         moves = []
@@ -59,21 +66,24 @@ class Rook(ChessPiece):
         super().__init__(color)
         self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # up down left right
         self.first_move = True  # for castling
-        self.img = p.image.load("Images/wR.png") if color == "White" else p.image.load("Images/bR.png")
+        img = p.image.load("Images/wR.png") if color == "White" else p.image.load("Images/bR.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
 
 class Bishop(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
         self.directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]  # all 4 diagonals
-        self.img = p.image.load("Images/wB.png") if color == "White" else p.image.load("Images/bB.png")
+        img = p.image.load("Images/wB.png") if color == "White" else p.image.load("Images/bB.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
 
 class Knight(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
         self.movements = [(2, -1), (2, 1), (1, -2), (1, 2), (-1, -2), (-1, 2), (-2, -1), (-2, 1)]  # 8 movements
-        self.img = p.image.load("Images/wN.png") if color == "White" else p.image.load("Images/bN.png")
+        img = p.image.load("Images/wN.png") if color == "White" else p.image.load("Images/bN.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
 
 class King(ChessPiece):
@@ -81,23 +91,26 @@ class King(ChessPiece):
         super().__init__(color)
         self.movements = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]  # 8 movements
         self.first_move = True  # for castling
-        self.img = p.image.load("Images/wK.png") if color == "White" else p.image.load("Images/bK.png")
+        img = p.image.load("Images/wK.png") if color == "White" else p.image.load("Images/bK.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
 
 class Queen(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
         self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]  # rook + bishop
-        self.img = p.image.load("Images/wQ.png") if color == "White" else p.image.load("Images/bQ.png")
+        img = p.image.load("Images/wQ.png") if color == "White" else p.image.load("Images/bQ.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
 
 class Pawn(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
         self.first_move = True  # pawn can move 1 or 2 squares in first move
-        self.img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
+        img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
+        self.img = pygame.transform.scale(img, (piece_size()))
 
-    def pawn_movements(self, board_state, color): #should be correct now
+    def pawn_movements(self, board_state, color):  # should be correct now
         moves = []
         forward_one = -1 if color == "White" else 1  # White moves -1 direction, black +1.
         if board_state[self.row + forward_one][self.col] is None:

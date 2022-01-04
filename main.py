@@ -14,6 +14,7 @@ def main():
     refresh_screen()  # initialise the screen
 
     while True:
+        refresh_screen()
         for e in p.event.get():
             if e.type == p.QUIT:
                 p.quit()
@@ -71,7 +72,7 @@ def main():
 
                         if player_clicks == castle_queenside_move:
                             cbd.castle_queenside()
-                            cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black" #repeated, refactor out.
+                            cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"  # repeated, refactor out
 
                         if cbd.is_mate():
                             mate = True
@@ -80,6 +81,7 @@ def main():
                         sq_selected, player_clicks = (), []
 
                         print("Turn now is", cbd.whose_turn)
+                        refresh_screen()
 
         if mate is True:
             show_checkmate(screen, cbd)
