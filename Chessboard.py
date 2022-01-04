@@ -8,12 +8,8 @@ class ChessBoard:
 
         for i in [0, 1, 6, 7]:  # Setting up board + giving pieces their row, col positions.
             color = "Black" if i <= 1 else "White"
-            if i == 0 or i == 7:
-                self.board_state[i] = [Rook(color), Knight(color), Bishop(color), Queen(color),
-                                       King(color), Bishop(color), Knight(color), Rook(color)]
-            else:
-                self.board_state[i] = [Pawn(color) for _ in range(8)]
-
+            self.board_state[i] = ([Rook(color), Knight(color), Bishop(color), Queen(color), King(color), Bishop(color),
+                                    Knight(color),Rook(color)] if i == 0 or i == 7 else [Pawn(color) for _ in range(8)])
             for j in range(len(self.board_state[i])):
                 self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
@@ -57,22 +53,23 @@ class ChessBoard:
         self.board_state[start_pos[0]][start_pos[1]] = None
 
     def can_castle(self, side):
-        i = 7 if self.whose_turn == "White" else 0 # get the row
+        i = 7 if self.whose_turn == "White" else 0  # get the row
         The_King = self.board_state[i][4]
-        if side == "Kingside": # initialise constants to use later
-            j,k = 5, 6
+        if side == "Kingside":  # initialise constants to use later
+            j, k = 5, 6
             square_one, square_two, square_three = self.board_state[i][5], self.board_state[i][6], None
             The_Rook = self.board_state[i][7]
         else:
-            j,k = 3, 2
-            square_one, square_two, square_three = self.board_state[i][3],self.board_state[i][2],self.board_state[i][1]
+            j, k = 3, 2
+            square_one, square_two, square_three = self.board_state[i][3], self.board_state[i][2], self.board_state[i][
+                1]
             The_Rook = self.board_state[i][0]
 
         if isinstance(The_King, King) and isinstance(The_Rook, Rook):  # if it's actually the King and Rook
             if The_King.first_move == True and The_Rook.first_move == True:
                 if square_one is None and square_two is None and square_three is None:
                     # Checks empty squares between King and Rook, then sees if the squares are in check.
-                    if self.is_square_under_check((i,j)) or self.is_square_under_check((i,k)):
+                    if self.is_square_under_check((i, j)) or self.is_square_under_check((i, k)):
                         return False
                     return True
         return False
@@ -102,14 +99,14 @@ class ChessBoard:
                     self.board_state[i][j] = Queen(self.board_state[i][j].color)  # auto queen
                     self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
-    def is_square_under_check(self, square): # feed in a square pair(i,j) and determines if in check.
+    def is_square_under_check(self, square):  # feed in a square pair(i,j) and determines if in check.
         for row in range(len(self.board_state)):
             for col in range(len(self.board_state[0])):
                 piece = self.board_state[row][col]
                 if piece is not None and piece.color != self.whose_turn:  # enemy piece
                     all_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
                     for move in all_moves:
-                        if move == square: # if there's a piece who can eat the square in next move
+                        if move == square:  # if there's a piece who can eat the square in next move
                             return True
         return False
 

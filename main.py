@@ -27,12 +27,24 @@ def main():
                         show_legal_moves(screen, sq_selected, cbd)  # ok
                         piece = cbd.board_state[sq_selected[0]][sq_selected[1]]
 
-                        if isinstance(piece, King): #checks for castle and displays the move
+                        if isinstance(piece, King):  # checks for castle and displays the move
                             if cbd.can_castle("Kingside"):
-                                castle_kingside_move = (0,6) if cbd.whose_turn == "Black" else (7,6)
+                                castle_kingside_move = ([sq_selected, (0,6)] if cbd.whose_turn == "Black"
+                                                        else [sq_selected, (7,6)])
+                                p.draw.circle(screen, "green",
+                                              (castle_kingside_move[1][1] * PIECE_SIZE + 0.5 * PIECE_SIZE,
+                                               castle_kingside_move[1][0] * PIECE_SIZE + 0.5 * PIECE_SIZE),
+                                              CIRCLE_SIZE)
+                                p.display.update()
 
                             if cbd.can_castle("Queenside"):
-                                castle_queenside_move = (0,2) if cbd.whose_turn == "Black" else (7,2)
+                                castle_queenside_move = ([sq_selected, (0, 2)] if cbd.whose_turn == "Black"
+                                                        else [sq_selected, (7, 2)])
+                                p.draw.circle(screen, "green",
+                                              (castle_queenside_move[1][1] * PIECE_SIZE + 0.5 * PIECE_SIZE,
+                                               castle_queenside_move[1][0] * PIECE_SIZE + 0.5 * PIECE_SIZE),
+                                              CIRCLE_SIZE)
+                                p.display.update()
 
                         player_clicks.append(sq_selected)
 
@@ -52,15 +64,14 @@ def main():
                             cbd.pawn_promotion()
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
-                        # special moves (castle, enpassant)
-                        if sq_selected == castle_kingside_move:
+                        # special moves (eg: castle, enpassant)
+                        if player_clicks == castle_kingside_move:
                             cbd.castle_kingside()
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
-                        if sq_selected == castle_queenside_move:
+                        if player_clicks == castle_queenside_move:
                             cbd.castle_queenside()
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black" #repeated, refactor out.
-
 
                         if cbd.is_mate():
                             mate = True
