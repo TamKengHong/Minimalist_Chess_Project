@@ -4,7 +4,7 @@ Basic:
 1. Cut down the code to bare minimum (done)
 2. Implement the chessboard correctly (done)
 3. Implement the pieces correctly (done)
-4. Implement GUI (fix bugs)
+4. Implement GUI (done)
 
 
 Extensions:
