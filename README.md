@@ -9,11 +9,8 @@ Basic:
 
 Extensions:
 1. implement castling (done)
-2. implement en passant
-3. implement stalemate rules (done, not done with 3 fold rep (is there a need to?))
-4. implement move history
-5. implement undo (do we need this?)
+2. implement en passant (done)
+3. implement stalemate rules (done)
+4. implement move history (no)
+5. implement undo (no)
 6. implement pawn promotion (done auto queen)
-
-Bugs:
-Done

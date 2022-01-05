@@ -5,7 +5,7 @@ from GUI import *
 def main():
     cbd, screen, mate = ChessBoard(), gui_board(), False
     sq_selected, player_clicks = (), []  # sq is tuple of (row, col), player_clicks is array of sq_selected
-    castle_kingside_move, castle_queenside_move, enpassant_move = None, None, None
+    KSCastle, QSCastle, enpassant_move = None, None, None
 
     def refresh_screen():
         draw_pieces(gui_board(), cbd.board_state)
@@ -16,7 +16,6 @@ def main():
     while True:
         for e in p.event.get():
             if e.type == p.QUIT:
-                p.quit()
                 quit()
 
             elif e.type == p.MOUSEBUTTONDOWN:  # player input
@@ -29,19 +28,16 @@ def main():
 
                         if isinstance(piece, King):  # checks for castle and displays the move
                             if cbd.can_castle("Kingside"):
-                                castle_kingside_move = ([sq_selected, (0,6)] if cbd.whose_turn == "Black"
-                                                        else [sq_selected, (7,6)])
-                                display_circle(screen, castle_kingside_move[1])
+                                KSCastle = [sq_selected, (0, 6)] if cbd.whose_turn == "Black" else [sq_selected, (7, 6)]
+                                display_circle(screen, KSCastle[1])
 
                             if cbd.can_castle("Queenside"):
-                                castle_queenside_move = ([sq_selected, (0, 2)] if cbd.whose_turn == "Black"
-                                                        else [sq_selected, (7, 2)])
-                                display_circle(screen, castle_queenside_move[1])
+                                QSCastle = [sq_selected, (0, 2)] if cbd.whose_turn == "Black" else [sq_selected, (7, 2)]
+                                display_circle(screen, QSCastle[1])
 
-                        if isinstance(piece, Pawn):
-                            if piece.enpassant_move:
-                                enpassant_move = piece.enpassant_move
-                                display_circle(screen, enpassant_move)
+                        if isinstance(piece, Pawn) and piece.enpassant_move:
+                            enpassant_move = piece.enpassant_move
+                            display_circle(screen, enpassant_move)
 
                         player_clicks.append(sq_selected)
 
@@ -64,13 +60,9 @@ def main():
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
                         # special moves (eg: castle, enpassant)
-                        if player_clicks == castle_kingside_move:
-                            cbd.castle("Kingside")
+                        if player_clicks == KSCastle or player_clicks == QSCastle:  # castle
+                            cbd.castle("Kingside") if player_clicks == KSCastle else cbd.castle("Queenside")
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
-
-                        if player_clicks == castle_queenside_move:
-                            cbd.castle("Queenside")
-                            cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black" #repeated, refactor out.
 
                         if sq_selected == enpassant_move:
                             pawn_selected = cbd.board_state[player_clicks[0][0]][player_clicks[0][1]]
@@ -82,11 +74,8 @@ def main():
                             mate = True
 
                         cbd.reset_enpassant()
-
                         refresh_screen()
                         sq_selected, player_clicks = (), []
-
-                        print("Turn now is", cbd.whose_turn)
 
         if mate is True:
             show_checkmate(screen, cbd)

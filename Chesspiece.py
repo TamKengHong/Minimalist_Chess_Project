@@ -3,9 +3,7 @@ import pygame as p
 
 class ChessPiece:
     def __init__(self, color):
-        self.color = color
-        self.row = None
-        self.col = None
+        self.color, self.row, self.col = color, None, None
 
     def step_movements(self, board_state, movements):  # for King, Knight
         moves = []
@@ -21,8 +19,7 @@ class ChessPiece:
         for direction in directions:
             row_sum, col_sum = 0, 0
             for i in range(len(board_state)):
-                row_sum += direction[0]
-                col_sum += direction[1]  # increment by + direction at every iter step
+                row_sum, col_sum = row_sum + direction[0], col_sum + direction[1]  # increment by + direction
                 if self.row + row_sum in range(len(board_state)) and self.col + col_sum in range(len(board_state[0])):
                     element = board_state[self.row + row_sum][self.col + col_sum]
                     if element is None:
@@ -54,21 +51,6 @@ class ChessPiece:
         return legal_moves
 
 
-class Rook(ChessPiece):
-    def __init__(self, color):
-        super().__init__(color)
-        self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # up down left right
-        self.first_move = True  # for castling
-        self.img = p.image.load("Images/wR.png") if color == "White" else p.image.load("Images/bR.png")
-
-
-class Bishop(ChessPiece):
-    def __init__(self, color):
-        super().__init__(color)
-        self.directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]  # all 4 diagonals
-        self.img = p.image.load("Images/wB.png") if color == "White" else p.image.load("Images/bB.png")
-
-
 class Knight(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
@@ -84,6 +66,21 @@ class King(ChessPiece):
         self.img = p.image.load("Images/wK.png") if color == "White" else p.image.load("Images/bK.png")
 
 
+class Bishop(ChessPiece):
+    def __init__(self, color):
+        super().__init__(color)
+        self.directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]  # all 4 diagonals
+        self.img = p.image.load("Images/wB.png") if color == "White" else p.image.load("Images/bB.png")
+
+
+class Rook(ChessPiece):
+    def __init__(self, color):
+        super().__init__(color)
+        self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # up down left right
+        self.first_move = True  # for castling
+        self.img = p.image.load("Images/wR.png") if color == "White" else p.image.load("Images/bR.png")
+
+
 class Queen(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
@@ -94,19 +91,17 @@ class Queen(ChessPiece):
 class Pawn(ChessPiece):
     def __init__(self, color):
         super().__init__(color)
-        self.first_move = True  # pawn can move 1 or 2 squares in first move
+        self.first_move, self.enpassantable, self.enpassant_move = True, False, None
         self.img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
-        self.enpassantable = False
-        self.enpassant_move = None
 
-    def pawn_movements(self, board_state, color): #should be correct now
+    def pawn_movements(self, board_state, color):  # should be correct now
         moves = []
         forward_one = -1 if color == "White" else 1  # White moves -1 direction, black +1.
         if board_state[self.row + forward_one][self.col] is None:
             moves.append((self.row + forward_one, self.col))
-            if self.first_move:
-                if board_state[self.row + (forward_one * 2)][self.col] is None:
-                    moves.append((self.row + forward_one * 2, self.col))
+            if self.first_move and board_state[self.row + (forward_one * 2)][self.col] is None:
+                moves.append((self.row + forward_one * 2, self.col))  # pawn can move 2 squares in first move
+
         for i in [-1, 1]:  # check left and right diagonal for enemy piece to eat.
             if self.col + i in range(len(board_state[0])):  # prevent out of range error
                 piece = board_state[self.row + forward_one][self.col + i]
@@ -115,5 +110,4 @@ class Pawn(ChessPiece):
                 en_piece = board_state[self.row][self.col + i]  # for enpassant checks
                 if isinstance(en_piece, Pawn) and en_piece.enpassantable == True and en_piece.color != self.color:
                     self.enpassant_move = (self.row + forward_one, self.col + i) #can capture enpassant pawn
-                    print(self.enpassant_move)
         return moves

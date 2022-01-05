@@ -1,27 +1,23 @@
 import pygame as p
 
-HEIGHT, WIDTH = 800, 800
-ROWS, COLS = 7, 7
+HEIGHT, WIDTH, ROWS, COLS = 800, 800, 7, 7
 SQ_SIZE = HEIGHT / ROWS + 1
-PIECE_SIZE = 100
-CIRCLE_SIZE = 0.1 * SQ_SIZE
+PIECE_SIZE, CIRCLE_SIZE = 100, 0.1 * SQ_SIZE
 
 
 def gui_board():
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
     p.display.set_caption('Chess')
-    img = p.transform.scale(p.image.load("Images/Chessboard.png"), (HEIGHT, WIDTH))
-    screen.blit(img, (0, 0))
+    screen.blit(p.transform.scale(p.image.load("Images/Chessboard.png"), (HEIGHT, WIDTH)), (0, 0))
     return screen
 
 
 def draw_pieces(screen, board_state):
-    for row in range(8):
-        for col in range(8):
-            piece = board_state[row][col]
-            if piece is not None:
-                screen.blit(piece.img, p.Rect(col * PIECE_SIZE, row * PIECE_SIZE, PIECE_SIZE, PIECE_SIZE))
+    for i in range(8):
+        for j in range(8):
+            if board_state[i][j] is not None:
+                screen.blit(board_state[i][j].img, p.Rect(j * PIECE_SIZE, i * PIECE_SIZE, PIECE_SIZE, PIECE_SIZE))
 
 
 def get_sq_selected():  # no issue
@@ -30,24 +26,23 @@ def get_sq_selected():  # no issue
     return (row, col)
 
 
-def is_legal_piece(sq_selected, chessboard): #no issue
-    piece = chessboard.board_state[sq_selected[0]][sq_selected[1]]
-    if piece is not None:
-        return chessboard.whose_turn == piece.color
-    else:
-        return False
+def is_legal_piece(sq_selected, board): #no issue
+    piece = board.board_state[sq_selected[0]][sq_selected[1]]
+    return board.whose_turn == piece.color if piece is not None else False
 
 
-def show_legal_moves(screen, sq_selected, chessboard):
-    piece = chessboard.board_state[sq_selected[0]][sq_selected[1]]
-    legal_moves = piece.get_legal_moves(chessboard)
+def show_legal_moves(screen, sq_selected, board):
+    piece = board.board_state[sq_selected[0]][sq_selected[1]]
+    legal_moves = piece.get_legal_moves(board)
     for move in legal_moves:
         display_circle(screen, move)
+
 
 def display_circle(screen, move):
     p.draw.circle(screen, "green",
                   (move[1] * PIECE_SIZE + 0.5 * PIECE_SIZE, move[0] * PIECE_SIZE + 0.5 * PIECE_SIZE), CIRCLE_SIZE)
     p.display.update()
+
 
 def show_checkmate(screen, chessboard):
     winner = "WHITE" if chessboard.whose_turn == "Black" else "BLACK"

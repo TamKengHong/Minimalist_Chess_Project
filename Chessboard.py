@@ -7,9 +7,9 @@ class ChessBoard:
         self.whose_turn = "White"
 
         for i in [0, 1, 6, 7]:  # Setting up board + giving pieces their row, col positions.
-            color = "Black" if i <= 1 else "White"
-            self.board_state[i] = ([Rook(color), Knight(color), Bishop(color), Queen(color), King(color), Bishop(color),
-                                    Knight(color),Rook(color)] if i == 0 or i == 7 else [Pawn(color) for _ in range(8)])
+            c = "Black" if i <= 1 else "White"  # c is the color of the piece
+            self.board_state[i] = ([Rook(c), Knight(c), Bishop(c), Queen(c), King(c), Bishop(c),
+                                    Knight(c), Rook(c)] if i == 0 or i == 7 else [Pawn(c) for _ in range(8)])
             for j in range(len(self.board_state[i])):
                 self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
@@ -20,9 +20,8 @@ class ChessBoard:
                 piece = self.board_state[row][col]
                 if piece is not None:
                     if isinstance(piece, Pawn):
-                        new_piece = copy[row][col] = Pawn(piece.color)
-                        new_piece.enpassantable = piece.enpassantable  # copies over enpassantable state
-                        new_piece.enpassant_move = piece.enpassant_move
+                        new_piece = copy[row][col] = Pawn(piece.color)  # copies the piece and enpassant state
+                        new_piece.enpassantable, new_piece.enpassant_move = piece.enpassantable, piece.enpassant_move
                     elif isinstance(piece, Rook):
                         new_piece = copy[row][col] = Rook(piece.color)
                     elif isinstance(piece, Bishop):
@@ -40,12 +39,11 @@ class ChessBoard:
 
     def can_move(self, start_pos, end_pos):
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        if piece is not None:
-            if piece.color == self.whose_turn:
-                legal_moves = piece.get_legal_moves(self)
-                for move in legal_moves:
-                    if end_pos == move:
-                        return True
+        if piece is not None and piece.color == self.whose_turn:
+            legal_moves = piece.get_legal_moves(self)
+            for move in legal_moves:
+                if end_pos == move:
+                    return True
         return False
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
@@ -69,11 +67,16 @@ class ChessBoard:
         if isinstance(The_King, King) and isinstance(The_Rook, Rook):  # if it's actually the King and Rook
             if The_King.first_move == True and The_Rook.first_move == True:
                 if square_one is None and square_two is None and square_three is None:
-                    # Checks empty squares between King and Rook, then sees if the squares are in check.
                     if self.is_square_under_check((i, j)) or self.is_square_under_check((i, k)):
-                        return False
+                        return False # Checks empty squares between King and Rook, then sees if squares are in check.
                     return True
         return False
+
+    def castle(self, side):
+        i = 7 if self.whose_turn == "White" else 0
+        moves = [(i, 4), (i, 6), (i, 7), (i, 5)] if side == "Kingside" else [(i, 4), (i, 2), (i, 0), (i, 3)]
+        self.move_piece(moves[0], moves[1])
+        self.move_piece(moves[2], moves[3])
 
     def reset_enpassant(self):
         for row in range(8):
@@ -85,12 +88,6 @@ class ChessBoard:
         new_row, new_col = pawn.enpassant_move[0], pawn.enpassant_move[1]
         self.board_state[pawn.row][new_col] = None  # eats the pawn
         self.move_piece((pawn.row, pawn.col), (new_row, new_col)) # move pawn to new square
-
-    def castle(self, side):
-        i = 7 if self.whose_turn == "White" else 0
-        moves = [(i, 4), (i, 6), (i, 7), (i, 5)] if side == "Kingside" else [(i, 4), (i, 2), (i, 0), (i, 3)]
-        self.move_piece(moves[0], moves[1])
-        self.move_piece(moves[2], moves[3])
 
     def pawn_promotion(self):  # checks the backrank if theres pawns to queen depending on color.
         for i in [7, 0]:
@@ -130,9 +127,6 @@ class ChessBoard:
             return False
 
         if not has_legal_moves(self.whose_turn):  # checks if white or black turn has legal moves
-            a = "Checkmate" if self.is_under_check() else "Stalemate"
-            if a == "Checkmate":
-                print("Checkmate")  # doesnt work
-                return True
+            return "Checkmate" if self.is_under_check() else "Stalemate"
         else:
             return False
