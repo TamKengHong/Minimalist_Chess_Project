@@ -100,8 +100,7 @@ def show_legal_moves(screen, sq_selected, chessboard, castle_kingside_moves=None
                 display_circle(screen, move)
             return
         if enpassant_moves is not None:
-            for move in enpassant_moves:
-                display_circle(screen, move)
+            display_circle(screen, enpassant_moves)
 
 
 def display_circle(screen, move):
