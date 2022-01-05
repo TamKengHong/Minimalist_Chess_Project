@@ -41,13 +41,13 @@ class ChessPiece:
     def get_legal_moves(self, board):
         all_moves = self.get_all_moves(board.board_state)
         legal_moves = []
-        pos = (self.row, self.col) #original piece pos
+        pos = (self.row, self.col)  # original piece pos
         for move in all_moves:
-            temp_state = board.copy() #original board pos
+            temp_state = board.copy()  # original board pos
             board.move_piece(pos, move)
             if not board.is_under_check():
                 legal_moves.append(move)
-            board.board_state = temp_state # board_state now points to the copied board_state
+            board.board_state = temp_state  # board_state now points to the copied board_state
         return legal_moves
 
 
@@ -109,5 +109,5 @@ class Pawn(ChessPiece):
                     moves.append((self.row + forward_one, self.col + i))
                 en_piece = board_state[self.row][self.col + i]  # for enpassant checks
                 if isinstance(en_piece, Pawn) and en_piece.enpassantable == True and en_piece.color != self.color:
-                    self.enpassant_move = (self.row + forward_one, self.col + i) #can capture enpassant pawn
+                    self.enpassant_move = (self.row + forward_one, self.col + i)  # can capture enpassant pawn
         return moves
