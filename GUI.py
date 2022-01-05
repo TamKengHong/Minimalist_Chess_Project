@@ -1,5 +1,4 @@
 import pygame
-import pygame as p
 from Chessboard import *
 
 WIDTH, HEIGHT = 800, 800 # default window size
@@ -31,6 +30,9 @@ def refresh_screen(cbd, player_clicks):
     screen = gui_board(cbd)
     if len(player_clicks) == 0:
         sq_selected = get_sq_selected()
+        x, y = sq_selected
+        if x > 8 or y > 8:
+            sq_selected = 0, 0
         ck, cq, emp = check_castle(screen, cbd, sq_selected)
         if is_legal_piece(sq_selected, cbd):
             show_legal_moves(screen, sq_selected, cbd, ck, cq, emp)
@@ -40,6 +42,9 @@ def refresh_screen(cbd, player_clicks):
                 if e.type == pygame.QUIT:
                     quit()
     elif len(player_clicks) == 1:
+        x, y = player_clicks[0]
+        if x > 8 or y > 8:
+            player_clicks[0] = 0, 0
         ck, cq, emp = check_castle(screen, cbd, player_clicks[0])
         if is_legal_piece(player_clicks[0], cbd):
             show_legal_moves(screen, player_clicks[0], cbd, ck, cq, emp)

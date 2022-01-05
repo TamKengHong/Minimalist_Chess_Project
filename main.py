@@ -1,4 +1,3 @@
-from Chessboard import *
 from GUI import *
 
 
