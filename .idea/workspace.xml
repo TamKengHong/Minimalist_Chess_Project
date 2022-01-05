@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="Can castle and castle checks are fixed, now to update display">
-      <change beforePath="$PROJECT_DIR$/.idea/Chinese Chess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Chinese Chess.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="Castling all done!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chessboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chessboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chesspiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chesspiece.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -216,8 +214,14 @@
       <workItem from="1641096475488" duration="12609000" />
       <workItem from="1641193805772" duration="3815000" />
       <workItem from="1641218811591" duration="8511000" />
+<<<<<<< HEAD
       <workItem from="1641274006201" duration="12779000" />
       <workItem from="1641289456154" duration="8997000" />
+=======
+      <workItem from="1641274006201" duration="12914000" />
+      <workItem from="1641303465306" duration="6540000" />
+      <workItem from="1641350994893" duration="4321000" />
+>>>>>>> 419a25f8a2e42f7b724524482215c8044db599e2
     </task>
     <task id="LOCAL-00001" summary="Left with pawn movements and legal moves">
       <created>1640599616698</created>
@@ -436,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641287313926</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Castling all done!">
+      <created>1641288691186</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1641288691186</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,7 +487,8 @@
     <MESSAGE value="Improved image quality" />
     <MESSAGE value="Can castle but have a few bugs" />
     <MESSAGE value="Can castle and castle checks are fixed, now to update display" />
-    <option name="LAST_COMMIT_MESSAGE" value="Can castle and castle checks are fixed, now to update display" />
+    <MESSAGE value="Castling all done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Castling all done!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

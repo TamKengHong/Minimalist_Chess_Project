@@ -21,6 +21,8 @@ class ChessBoard:
                 if piece is not None:
                     if isinstance(piece, Pawn):
                         new_piece = copy[row][col] = Pawn(piece.color)
+                        new_piece.enpassantable = piece.enpassantable  # copies over enpassantable state
+                        new_piece.enpassant_move = piece.enpassant_move
                     elif isinstance(piece, Rook):
                         new_piece = copy[row][col] = Rook(piece.color)
                     elif isinstance(piece, Bishop):
@@ -48,7 +50,7 @@ class ChessBoard:
 
     def move_piece(self, start_pos, end_pos):  # positions are a pair of (row, col)
         piece = self.board_state[start_pos[0]][start_pos[1]]
-        piece.row, piece.col = end_pos[0], end_pos[1]
+        piece.row, piece.col = end_pos[0], end_pos[1]  # update row and col of piece
         self.board_state[end_pos[0]][end_pos[1]] = piece
         self.board_state[start_pos[0]][start_pos[1]] = None
 
@@ -61,8 +63,7 @@ class ChessBoard:
             The_Rook = self.board_state[i][7]
         else:
             j, k = 3, 2
-            square_one, square_two, square_three = self.board_state[i][3], self.board_state[i][2], self.board_state[i][
-                1]
+            square_one,square_two,square_three = self.board_state[i][3], self.board_state[i][2], self.board_state[i][1]
             The_Rook = self.board_state[i][0]
 
         if isinstance(The_King, King) and isinstance(The_Rook, Rook):  # if it's actually the King and Rook
@@ -74,23 +75,22 @@ class ChessBoard:
                     return True
         return False
 
-    # def can_castle_kingside(self): redundant
-    #     return self.can_castle("Kingside")
-    #
-    # def can_castle_queenside(self):
-    #     return self.can_castle("Queenside")
+    def reset_enpassant(self):
+        for row in range(8):
+            for col in range(8):
+                if isinstance(self.board_state[row][col], Pawn):
+                    self.board_state[row][col].enpassantable = False
 
-    # def can_enpassant
+    def capture_enpassant(self, pawn):
+        new_row, new_col = pawn.enpassant_move[0], pawn.enpassant_move[1]
+        self.board_state[pawn.row][new_col] = None  # eats the pawn
+        self.move_piece((pawn.row, pawn.col), (new_row, new_col)) # move pawn to new square
 
-    def castle_queenside(self):
+    def castle(self, side):
         i = 7 if self.whose_turn == "White" else 0
-        self.move_piece((i, 4), (i, 2))
-        self.move_piece((i, 0), (i, 3))
-
-    def castle_kingside(self):
-        i = 7 if self.whose_turn == "White" else 0
-        self.move_piece((i, 4), (i, 6))
-        self.move_piece((i, 7), (i, 5))
+        moves = [(i, 4), (i, 6), (i, 7), (i, 5)] if side == "Kingside" else [(i, 4), (i, 2), (i, 0), (i, 3)]
+        self.move_piece(moves[0], moves[1])
+        self.move_piece(moves[2], moves[3])
 
     def pawn_promotion(self):  # checks the backrank if theres pawns to queen depending on color.
         for i in [7, 0]:
