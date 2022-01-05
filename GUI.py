@@ -42,11 +42,12 @@ def show_legal_moves(screen, sq_selected, chessboard):
     piece = chessboard.board_state[sq_selected[0]][sq_selected[1]]
     legal_moves = piece.get_legal_moves(chessboard)
     for move in legal_moves:
-        p.draw.circle(screen, "green",
-                      (move[1] * PIECE_SIZE + 0.5 * PIECE_SIZE, move[0] * PIECE_SIZE + 0.5 * PIECE_SIZE),
-                      CIRCLE_SIZE)
-        p.display.update()
+        display_circle(screen, move)
 
+def display_circle(screen, move):
+    p.draw.circle(screen, "green",
+                  (move[1] * PIECE_SIZE + 0.5 * PIECE_SIZE, move[0] * PIECE_SIZE + 0.5 * PIECE_SIZE), CIRCLE_SIZE)
+    p.display.update()
 
 def show_checkmate(screen, chessboard):
     winner = "WHITE" if chessboard.whose_turn == "Black" else "BLACK"

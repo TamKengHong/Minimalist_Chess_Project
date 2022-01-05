@@ -96,6 +96,8 @@ class Pawn(ChessPiece):
         super().__init__(color)
         self.first_move = True  # pawn can move 1 or 2 squares in first move
         self.img = p.image.load("Images/wP.png") if color == "White" else p.image.load("Images/bP.png")
+        self.enpassantable = False
+        self.enpassant_move = None
 
     def pawn_movements(self, board_state, color): #should be correct now
         moves = []
@@ -110,4 +112,8 @@ class Pawn(ChessPiece):
                 piece = board_state[self.row + forward_one][self.col + i]
                 if piece is not None and piece.color != self.color:
                     moves.append((self.row + forward_one, self.col + i))
+                en_piece = board_state[self.row][self.col + i]  # for enpassant checks
+                if isinstance(en_piece, Pawn) and en_piece.enpassantable == True and en_piece.color != self.color:
+                    self.enpassant_move = (self.row + forward_one, self.col + i) #can capture enpassant pawn
+                    print(self.enpassant_move)
         return moves
