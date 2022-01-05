@@ -2,7 +2,7 @@ import pygame
 import pygame as p
 from Chessboard import *
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 800, 800 # default window size
 
 window = p.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 
@@ -37,6 +37,8 @@ def refresh_screen(cbd, player_clicks):
             for e in pygame.event.get():
                 if e.type == pygame.MOUSEBUTTONDOWN:
                     player_clicks.append(sq_selected)
+                if e.type == pygame.QUIT:
+                    quit()
     elif len(player_clicks) == 1:
         ck, cq, emp = check_castle(screen, cbd, player_clicks[0])
         if is_legal_piece(player_clicks[0], cbd):
