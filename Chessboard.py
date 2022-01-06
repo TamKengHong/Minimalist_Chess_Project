@@ -10,7 +10,7 @@ class ChessBoard:
             c = "Black" if i <= 1 else "White"  # c is the color of the piece
             self.board_state[i] = ([Rook(c), Knight(c), Bishop(c), Queen(c), King(c), Bishop(c),
                                     Knight(c), Rook(c)] if i == 0 or i == 7 else [Pawn(c) for _ in range(8)])
-            for j in range(len(self.board_state[i])):
+            for j in range(8):
                 self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
     def copy(self):  # recreate the whole board_state to store
@@ -91,14 +91,14 @@ class ChessBoard:
 
     def pawn_promotion(self):  # checks the backrank if theres pawns to queen depending on color.
         for i in [7, 0]:
-            for j in range(len(self.board_state[0])):
+            for j in range(8):
                 if isinstance(self.board_state[i][j], Pawn):
                     self.board_state[i][j] = Queen(self.board_state[i][j].color)  # auto queen
                     self.board_state[i][j].row, self.board_state[i][j].col = i, j
 
     def is_square_under_check(self, square):  # feed in a square pair(i,j) and determines if in check.
-        for row in range(len(self.board_state)):
-            for col in range(len(self.board_state[0])):
+        for row in range(8):
+            for col in range(8):
                 piece = self.board_state[row][col]
                 if piece is not None and piece.color != self.whose_turn:  # enemy piece
                     all_moves = piece.get_all_moves(self.board_state)  # check every move if it gives rise to check
@@ -109,8 +109,8 @@ class ChessBoard:
 
     def is_under_check(self):
         def checker(color):
-            for row in range(len(self.board_state)):
-                for col in range(len(self.board_state[0])):
+            for row in range(8):
+                for col in range(8):
                     if isinstance(self.board_state[row][col], King) and self.board_state[row][col].color == color:
                         The_King = self.board_state[row][col]  # selects the correct colored King
             return self.is_square_under_check((The_King.row, The_King.col))
@@ -119,8 +119,8 @@ class ChessBoard:
 
     def is_checkmate(self):  # doesnt work
         def has_legal_moves(color):
-            for row in range(len(self.board_state)):
-                for col in range(len(self.board_state[0])):
+            for row in range(8):
+                for col in range(8):
                     piece = self.board_state[row][col]
                     if piece is not None and piece.color == color and piece.get_legal_moves(self):
                         return True  # stop once there are legal moves

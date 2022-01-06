@@ -8,7 +8,7 @@ class ChessPiece:
     def step_movements(self, board_state, movements):  # for King, Knight
         moves = []
         for x, y in movements:
-            if self.row + x in range(len(board_state)) and self.col + y in range(len(board_state[0])):
+            if self.row + x in range(8) and self.col + y in range(8):
                 element = board_state[self.row + x][self.col + y]
                 if element is None or element.color != self.color:
                     moves.append((self.row + x, self.col + y))
@@ -18,9 +18,9 @@ class ChessPiece:
         moves = []
         for direction in directions:
             row_sum, col_sum = 0, 0
-            for i in range(len(board_state)):
+            for i in range(8):
                 row_sum, col_sum = row_sum + direction[0], col_sum + direction[1]  # increment by + direction
-                if self.row + row_sum in range(len(board_state)) and self.col + col_sum in range(len(board_state[0])):
+                if self.row + row_sum in range(8) and self.col + col_sum in range(8):
                     element = board_state[self.row + row_sum][self.col + col_sum]
                     if element is None:
                         moves.append((self.row + row_sum, self.col + col_sum))
@@ -103,7 +103,7 @@ class Pawn(ChessPiece):
                 moves.append((self.row + forward_one * 2, self.col))  # pawn can move 2 squares in first move
 
         for i in [-1, 1]:  # check left and right diagonal for enemy piece to eat.
-            if self.col + i in range(len(board_state[0])):  # prevent out of range error
+            if self.col + i in range(8):  # prevent out of range error
                 piece = board_state[self.row + forward_one][self.col + i]
                 if piece is not None and piece.color != self.color:
                     moves.append((self.row + forward_one, self.col + i))
