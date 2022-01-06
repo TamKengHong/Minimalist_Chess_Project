@@ -67,7 +67,7 @@ def main():
                         if sq_selected == enpassant_move:
                             pawn_selected = cbd.board_state[player_clicks[0][0]][player_clicks[0][1]]
                             cbd.capture_enpassant(pawn_selected)
-                            pawn_selected.enpassant_move = None
+                            pawn_selected.enpassant_move, enpassant_move = None, None
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
                         if cbd.is_checkmate():
