@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="final">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chessboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chessboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chesspiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chesspiece.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI.py" afterDir="false" />
-    </list>
+    <list default="true" id="eb970b8a-a7b7-4747-aae1-f9ed5dcadff3" name="Changes" comment="final, reformatted to fit PEP8 standards" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -231,7 +226,7 @@
       <workItem from="1641387566002" duration="4514000" />
       <workItem from="1641401346518" duration="350000" />
       <workItem from="1641447829585" duration="3238000" />
-      <workItem from="1641453447757" duration="546000" />
+      <workItem from="1641453447757" duration="729000" />
     </task>
     <task id="LOCAL-00001" summary="Left with pawn movements and legal moves">
       <created>1640599616698</created>
@@ -506,7 +501,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641453019880</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="final, reformatted to fit PEP8 standards">
+      <created>1641454173078</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1641454173078</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +561,8 @@
     <MESSAGE value="Enpassant all done!&#10;Now 100% done with chess" />
     <MESSAGE value="Refactored, reorganised code and made it shorter" />
     <MESSAGE value="final" />
-    <option name="LAST_COMMIT_MESSAGE" value="final" />
+    <MESSAGE value="final, reformatted to fit PEP8 standards" />
+    <option name="LAST_COMMIT_MESSAGE" value="final, reformatted to fit PEP8 standards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
