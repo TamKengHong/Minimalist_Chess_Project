@@ -4,7 +4,7 @@
 
 I implemented chess using python and pygame for my 2021 winter project. I have tried to make the code as simple and
 minimalistic as possible, cutting away variables and lines that are not needed without sacrificing code quality or
-leading to confusion.
+leading to confusion. This is my first time using python.
 
 The resulting code is only 380 lines long and comes complete with GUI, legal move display, castling, enpassant and pawn
 promotion (auto queen).
