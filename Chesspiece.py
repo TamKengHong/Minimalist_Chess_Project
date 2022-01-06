@@ -108,6 +108,6 @@ class Pawn(ChessPiece):
                 if piece is not None and piece.color != self.color:
                     moves.append((self.row + forward_one, self.col + i))
                 en_piece = board_state[self.row][self.col + i]  # for enpassant checks
-                if isinstance(en_piece, Pawn) and en_piece.enpassantable == True and en_piece.color != self.color:
+                if isinstance(en_piece, Pawn) and en_piece.enpassantable is True and en_piece.color != self.color:
                     self.enpassant_move = (self.row + forward_one, self.col + i)  # can capture enpassant pawn
         return moves

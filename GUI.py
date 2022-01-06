@@ -20,13 +20,13 @@ def draw_pieces(screen, board_state):
                 screen.blit(board_state[i][j].img, p.Rect(j * PIECE_SIZE, i * PIECE_SIZE, PIECE_SIZE, PIECE_SIZE))
 
 
-def get_sq_selected():  # no issue
-    location = p.mouse.get_pos()     # (x, y) pos of mouse
+def get_sq_selected():
+    location = p.mouse.get_pos()  # (x, y) pos of mouse
     row, col = int(location[1] // PIECE_SIZE), int(location[0] // PIECE_SIZE)
-    return (row, col)
+    return row, col
 
 
-def is_legal_piece(sq_selected, board): #no issue
+def is_legal_piece(sq_selected, board):
     piece = board.board_state[sq_selected[0]][sq_selected[1]]
     return board.whose_turn == piece.color if piece is not None else False
 

@@ -49,7 +49,7 @@ def main():
                         sq_selected = get_sq_selected()
                         player_clicks.append(sq_selected)
 
-                        if cbd.can_move(player_clicks[0], player_clicks[1]):  # move the piece and does checks.
+                        if cbd.can_move(player_clicks[0], player_clicks[1]):  # move the piece and does checks
                             cbd.move_piece(player_clicks[0], player_clicks[1])
                             piece = cbd.board_state[player_clicks[1][0]][player_clicks[1][1]]
                             if isinstance(piece, Pawn) and abs(player_clicks[1][0] - player_clicks[0][0]) == 2:
