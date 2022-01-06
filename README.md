@@ -2,7 +2,7 @@
 
 # Description:
 
-I implemented chess using python and pygame for my 2021 winter project. This is my first time using python.
+I implemented chess using python and pygame for my 2021 winter project. This is my first time learning python and OOP.
 
 I have tried to make the code as simple and minimalistic as possible, cutting away variables and lines that are not 
 needed without sacrificing code quality or leading to confusion.
