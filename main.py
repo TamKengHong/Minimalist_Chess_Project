@@ -3,9 +3,9 @@ from GUI import *
 
 
 def main():
-    cbd, screen, mate = ChessBoard(), gui_board(), False
+    cbd, screen, checkmate = ChessBoard(), gui_board(), False
     sq_selected, player_clicks = (), []  # sq is tuple of (row, col), player_clicks is array of sq_selected
-    KSCastle, QSCastle, enpassant_move = None, None, None
+    k_castle, q_castle, enpassant_move = None, None, None
 
     def refresh_screen():
         draw_pieces(gui_board(), cbd.board_state)
@@ -28,12 +28,12 @@ def main():
 
                         if isinstance(piece, King):  # checks for castle and displays the move
                             if cbd.can_castle("Kingside"):
-                                KSCastle = [sq_selected, (0, 6)] if cbd.whose_turn == "Black" else [sq_selected, (7, 6)]
-                                display_circle(screen, KSCastle[1])
+                                k_castle = [sq_selected, (0, 6)] if cbd.whose_turn == "Black" else [sq_selected, (7, 6)]
+                                display_circle(screen, k_castle[1])
 
                             if cbd.can_castle("Queenside"):
-                                QSCastle = [sq_selected, (0, 2)] if cbd.whose_turn == "Black" else [sq_selected, (7, 2)]
-                                display_circle(screen, QSCastle[1])
+                                q_castle = [sq_selected, (0, 2)] if cbd.whose_turn == "Black" else [sq_selected, (7, 2)]
+                                display_circle(screen, q_castle[1])
 
                         if isinstance(piece, Pawn) and piece.enpassant_move:
                             enpassant_move = piece.enpassant_move
@@ -42,7 +42,7 @@ def main():
                         player_clicks.append(sq_selected)
 
                 elif len(player_clicks) == 1:
-                    if sq_selected == get_sq_selected():  # deselects if he clicks on same square
+                    if sq_selected == get_sq_selected():  # deselects if player clicks on same square
                         sq_selected, player_clicks = (), []
                         refresh_screen()
                     else:
@@ -60,8 +60,8 @@ def main():
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
                         # special moves (eg: castle, enpassant)
-                        if player_clicks == KSCastle or player_clicks == QSCastle:  # castle
-                            cbd.castle("Kingside") if player_clicks == KSCastle else cbd.castle("Queenside")
+                        if player_clicks == k_castle or player_clicks == q_castle:  # castle
+                            cbd.castle("Kingside") if player_clicks == k_castle else cbd.castle("Queenside")
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
                         if sq_selected == enpassant_move:
@@ -70,14 +70,14 @@ def main():
                             pawn_selected.enpassant_move = None
                             cbd.whose_turn = "White" if cbd.whose_turn == "Black" else "Black"
 
-                        if cbd.is_mate():
-                            mate = True
+                        if cbd.is_checkmate():
+                            checkmate = True
 
                         cbd.reset_enpassant()
                         refresh_screen()
                         sq_selected, player_clicks = (), []
 
-        if mate is True:
+        if checkmate is True:
             show_checkmate(screen, cbd)
 
 
